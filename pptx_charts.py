@@ -153,18 +153,22 @@ class ChartGenerator:
         """
         # Create figure with high DPI for quality
         dpi = 150
-        fig_width = width * dpi / 100
-        fig_height = height * dpi / 100
+        fig_width = width
+        fig_height = height
 
-        fig, ax = plt.subplots(figsize=(fig_width/dpi, fig_height/dpi), dpi=dpi)
+        # Create figure with proper sizing and margins
+        fig, ax = plt.subplots(figsize=(fig_width, fig_height), dpi=dpi)
+
+        # Adjust subplot to leave room for labels
+        fig.subplots_adjust(left=0.1, right=0.95, top=0.92, bottom=0.12)
 
         # Call custom plot function
         plot_func(ax, **kwargs)
 
         # Save to BytesIO
         img_stream = BytesIO()
-        plt.tight_layout()
-        plt.savefig(img_stream, format='png', dpi=dpi, bbox_inches='tight')
+        plt.savefig(img_stream, format='png', dpi=dpi, bbox_inches='tight',
+                   pad_inches=0.1, facecolor='white')
         plt.close(fig)
         img_stream.seek(0)
 
@@ -181,30 +185,41 @@ class ChartGenerator:
         x = np.arange(len(categories))
         width = 0.8 / len(data_series)
 
+        max_value = 0
         for i, series in enumerate(data_series):
             offset = (i - len(data_series) / 2) * width + width / 2
             color_rgb = [c / 255 for c in colors[i % len(colors)]]
 
             bars = ax.bar(x + offset, series['values'], width,
-                         label=series['name'], color=color_rgb, alpha=0.9)
+                         label=series['name'], color=color_rgb, alpha=0.9,
+                         edgecolor='white', linewidth=0.5)
+
+            # Track max value
+            max_value = max(max_value, max(series['values']))
 
             # Add value labels on bars
             for bar in bars:
                 height = bar.get_height()
                 ax.text(bar.get_x() + bar.get_width() / 2., height,
-                       f'{height:.1f}',
-                       ha='center', va='bottom', fontsize=9)
+                       f'{int(height)}',
+                       ha='center', va='bottom', fontsize=8, fontweight='bold')
 
-        ax.set_xlabel('Categories', fontweight='bold')
-        ax.set_ylabel('Values', fontweight='bold')
-        ax.set_title(title, fontweight='bold', fontsize=14, pad=20)
+        # Set y-axis limit to give room for labels
+        ax.set_ylim(0, max_value * 1.12)
+
+        ax.set_ylabel('Values', fontweight='bold', fontsize=11)
+        if title:
+            ax.set_title(title, fontweight='bold', fontsize=13, pad=10)
         ax.set_xticks(x)
-        ax.set_xticklabels(categories)
-        ax.legend(frameon=False)
+        ax.set_xticklabels(categories, fontsize=9)
+        ax.legend(frameon=False, loc='upper left', fontsize=9)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.grid(axis='y', alpha=0.3, linestyle='--')
+        ax.grid(axis='y', alpha=0.3, linestyle='--', linewidth=0.5)
         ax.set_axisbelow(True)
+
+        # Ensure tick labels are readable
+        ax.tick_params(axis='both', labelsize=9)
 
     @staticmethod
     def create_beautiful_line_chart(ax, categories: List[str], data_series: List[Dict],
@@ -213,28 +228,36 @@ class ChartGenerator:
         colors = ChartGenerator.COLOR_SCHEMES.get(color_scheme, ChartGenerator.COLOR_SCHEMES['professional'])
 
         x = np.arange(len(categories))
+        max_value = 0
 
         for i, series in enumerate(data_series):
             color_rgb = [c / 255 for c in colors[i % len(colors)]]
 
             ax.plot(x, series['values'], marker='o', linewidth=2.5,
-                   markersize=8, label=series['name'], color=color_rgb)
+                   markersize=7, label=series['name'], color=color_rgb,
+                   markeredgecolor='white', markeredgewidth=1.5)
+
+            max_value = max(max_value, max(series['values']))
 
             # Add value labels
             for j, value in enumerate(series['values']):
-                ax.text(x[j], value, f'{value:.1f}',
-                       ha='center', va='bottom', fontsize=8)
+                ax.text(x[j], value, f'{int(value)}',
+                       ha='center', va='bottom', fontsize=8, fontweight='bold')
 
-        ax.set_xlabel('Categories', fontweight='bold')
-        ax.set_ylabel('Values', fontweight='bold')
-        ax.set_title(title, fontweight='bold', fontsize=14, pad=20)
+        # Set y-axis limit to give room for labels
+        ax.set_ylim(0, max_value * 1.12)
+
+        ax.set_ylabel('Values', fontweight='bold', fontsize=11)
+        if title:
+            ax.set_title(title, fontweight='bold', fontsize=13, pad=10)
         ax.set_xticks(x)
-        ax.set_xticklabels(categories)
-        ax.legend(frameon=False)
+        ax.set_xticklabels(categories, fontsize=9)
+        ax.legend(frameon=False, loc='upper left', fontsize=9)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
-        ax.grid(alpha=0.3, linestyle='--')
+        ax.grid(alpha=0.3, linestyle='--', linewidth=0.5)
         ax.set_axisbelow(True)
+        ax.tick_params(axis='both', labelsize=9)
 
     @staticmethod
     def create_beautiful_pie_chart(ax, categories: List[str], values: List[float],
