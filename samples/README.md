@@ -2,7 +2,7 @@
 
 This directory contains example PowerPoint presentations created with the Python PowerPoint Suite to demonstrate the capabilities of the library.
 
-## 📊 Sample Files
+## 📊 Quick Start Samples
 
 ### 🌟 DEMO_PRESENTATION.pptx (87KB)
 **The main showcase - 8 professional slides**
@@ -106,6 +106,97 @@ ModernTemplates.create_content_slide(
     layout='two_column'
 )
 ```
+
+---
+
+## 🎯 Professional Sample Presentations
+
+### 📈 Sample 1: Business Quarterly Review (125KB)
+**7 slides - Complete business performance presentation**
+
+Perfect for: Quarterly business reviews, executive presentations, board meetings
+
+Content includes:
+- Executive summary with key metrics
+- Revenue performance charts (bar chart, Q1-Q4)
+- Customer growth trends (line chart, 6 months)
+- Major achievements and milestones
+- Strategic priorities for next quarter
+- Inspirational closing quote
+
+**Features**: Corporate color scheme, professional charts, two-column layouts
+
+---
+
+### 🚀 Sample 2: Product Launch (80KB)
+**7 slides - New product introduction**
+
+Perfect for: Product launches, startup pitches, feature announcements
+
+Content includes:
+- Eye-catching title with multi-color gradient
+- Problem statement and market pain points
+- Solution overview and value proposition
+- Revolutionary features with icons
+- Market opportunity (pie chart)
+- Transparent pricing tiers
+- Strong call-to-action
+
+**Features**: Vibrant gradients, icon integration, engaging visuals
+
+---
+
+### 📱 Sample 3: Marketing Strategy (112KB)
+**7 slides - Digital marketing plan**
+
+Perfect for: Marketing planning, strategy presentations, campaign proposals
+
+Content includes:
+- Current market position analysis
+- Channel performance comparison (bar chart)
+- 2025 strategic objectives
+- Key marketing initiatives
+- Budget allocation breakdown (pie chart)
+- Expected results and KPIs
+- Inspirational marketing quote
+
+**Features**: Green theme, data-driven insights, ROI focus
+
+---
+
+### 💻 Sample 4: Technology Overview (100KB)
+**7 slides - AI/ML technology presentation**
+
+Perfect for: Tech talks, training sessions, architecture reviews
+
+Content includes:
+- Stunning gradient title slide
+- AI/ML fundamentals explained
+- Real-world applications across industries
+- Complete technology stack with icons
+- Performance improvement trends (line chart)
+- 6-month implementation roadmap
+- Future vision quote
+
+**Features**: Tech-focused design, indigo/purple gradients, clear explanations
+
+---
+
+### 👥 Sample 5: Training Module (80KB)
+**7 slides - Leadership development**
+
+Perfect for: Training sessions, workshops, professional development
+
+Content includes:
+- Learning objectives overview
+- Five leadership styles with descriptions
+- Essential communication skills
+- Team performance impact (comparison bar chart)
+- 30-day action plan
+- Key takeaways
+- Motivational leadership quote
+
+**Features**: Educational layout, orange theme, practical frameworks
 
 ---
 
